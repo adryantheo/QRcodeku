@@ -1,2 +1,4 @@
 # QRcodeku
-Learning Read &amp; Generate QR Code
+Learning Read & Generate QR Code
+
+Currently still static, stay tune for the updates
