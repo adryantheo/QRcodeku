@@ -18,13 +18,20 @@ class BrandsController extends Controller
    
     public function store(Request $request)
     {
-       
-            $brands = Brands::create([
-                'name' => $request->input('name'),
-            ]);
+       DB::transaction(function () use ($request, &$brands){
+        $brands = Brands::create([
+            'name' => $request->input('name'),
+        ]);
 
-          
+        // Credit::create([
+        //     'amount' => $request->input('amount'),
+        //     'qr_strings' => $request->input('qr_strings'),
+        //     'brands_id' => $brands->id
+        // ]);
+
+       },3);
         
+
 
         return response()->json([
             'status' => (bool) $brands,

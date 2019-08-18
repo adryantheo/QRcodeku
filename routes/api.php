@@ -22,3 +22,9 @@ Route::get('products/{brands}','BrandsController@show');
 Route::post('products','BrandsController@store');
 Route::patch('products/{brands}','BrandsController@update');
 Route::delete('products/{brands}','BrandsController@destroy');
+
+Route::get('credits', 'CreditController@index');
+Route::get('credits/{credit}','CreditController@show');
+Route::post('credits','CreditController@store');
+Route::patch('credits/{credit}','CreditController@update');
+Route::delete('credits/{credit}','CreditController@destroy');

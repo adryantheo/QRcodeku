@@ -13,7 +13,7 @@ class Credit extends Model
 
     ];
 
-    public function brand()
+    public function brands()
     {
         return $this->belongsTo(Brands::class);
     }

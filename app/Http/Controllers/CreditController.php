@@ -7,79 +7,59 @@ use Illuminate\Http\Request;
 
 class CreditController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function index()
     {
-        //
+        return response()->json(Credit::with(['brands'])->get(),200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(Request $request)
     {
-        //
+        $credit = Credit::create([
+            'amount' => $request->input('amount'),
+            'qr_strings' => $request->input('qr_strings'),
+            'brands_id' => $brands->id
+        ]);
+
+        return response()->json([
+            'status' => (bool) $credit,
+            'data'   => $credit,
+            'message' => $credit ? 'Credits Baru Berhasil Ditambahkan!' : 'Error Menambahkan Credits Baru'
+        ]);
+       
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Credit  $credit
-     * @return \Illuminate\Http\Response
-     */
+  
     public function show(Credit $credit)
     {
-        //
+        return response()->json($credit,200); 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Credit  $credit
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Credit $credit)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Credit  $credit
-     * @return \Illuminate\Http\Response
-     */
+  
     public function update(Request $request, Credit $credit)
     {
-        //
+        $status = $credit->update(
+            $request->only([
+                'amount',
+                'qr_strings'
+            ])
+            );
+        
+        return response()->json([
+            'status' => (bool) $status,
+            'data' => $status,
+            'message' => $status ? 'Credits Baru Berhasil Diupdate!' : 'Error Mengupdate Credits Baru'
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Credit  $credit
-     * @return \Illuminate\Http\Response
-     */
+  
     public function destroy(Credit $credit)
     {
-        //
+        $status = $credit->delete();
+        return response()->json([
+            'status' => $status,
+            'message' => $status ? 'Credits Berhasil di Hapus!' : 'Error Menghapus Credits'
+        ]);
     }
 }

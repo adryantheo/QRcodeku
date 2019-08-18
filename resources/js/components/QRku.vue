@@ -2,8 +2,6 @@
     <div id="app">
      <v-app id="inspire">
 
-  
-
     <v-toolbar color="white" app>
     
       <img src="../../../public/Logo.png" height="42" width="42" alt="" >
