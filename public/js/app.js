@@ -5409,6 +5409,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -5525,10 +5529,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     reloadBrand: function reloadBrand() {
       this.closeBrand();
       this.getBrand();
-    },
-    mounted: function mounted() {
-      this.getBrand();
     }
+  },
+  mounted: function mounted() {
+    this.getBrand();
   }
 });
 
@@ -5598,6 +5602,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     brandId: {
@@ -5610,6 +5633,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       dialogLoading: true,
       btnLoading: false,
       name: null,
+      fileUrl: '',
       rules: {
         required: function required(v) {
           return !!v || 'Harus Disi';
@@ -5618,66 +5642,97 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
+    pickFile: function pickFile() {
+      this.$refs.file.click();
+    },
+    onFileChange: function onFileChange(fieldName, file) {
+      var maxSize = this.maxSize;
+      console.log(fieldName);
+      var imageFile = file[0];
+
+      if (file.length > 0) {
+        var size = imageFile.size / maxSize / maxSize;
+
+        if (!imageFile.type.match('image,*')) {
+          this.errorText = 'File harus berupa gambar!';
+        } else if (size > 1) {
+          this.errorText = 'Ukuran File harus dibawah 1 MB';
+        } else {
+          this.errorText = '';
+          this.fileUrl = URL.createObjectURL(imageFile);
+          this.fileBin = imageFile;
+        }
+      }
+    },
     createNewBrand: function () {
       var _createNewBrand = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var res, _res;
+        var data, res, _res;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!this.$refs.form_new_brand.validate()) {
-                  _context.next = 20;
+                  _context.next = 23;
                   break;
                 }
 
                 this.btnLoading = true;
-                _context.prev = 2;
+                data = new FormData();
+                data.append("name", this.name);
+
+                if (this.fileBin) {
+                  data.append("image", this.fileBin);
+                }
+
+                _context.prev = 5;
 
                 if (this.brandId) {
-                  _context.next = 10;
+                  _context.next = 13;
                   break;
                 }
 
-                _context.next = 6;
-                return axios.post('/api/products', {
-                  name: this.name
+                _context.next = 9;
+                return axios.post('/api/products', data, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
                 });
 
-              case 6:
+              case 9:
                 res = _context.sent;
                 alert("Brand Berhasil dibuat");
-                _context.next = 14;
+                _context.next = 17;
                 break;
 
-              case 10:
-                _context.next = 12;
+              case 13:
+                _context.next = 15;
                 return axios.patch("/api/products/".concat(this.brandId), {
                   name: this.name
                 });
 
-              case 12:
+              case 15:
                 _res = _context.sent;
                 alert("Brand Berhasil diubah");
 
-              case 14:
+              case 17:
                 this.$emit('create_success');
-                _context.next = 20;
+                _context.next = 23;
                 break;
 
-              case 17:
-                _context.prev = 17;
-                _context.t0 = _context["catch"](2);
+              case 20:
+                _context.prev = 20;
+                _context.t0 = _context["catch"](5);
                 console.log(_context.t0);
 
-              case 20:
+              case 23:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 17]]);
+        }, _callee, this, [[5, 20]]);
       }));
 
       function createNewBrand() {
@@ -5699,7 +5754,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context2.prev = _context2.next) {
             case 0:
               if (!this.brandId) {
-                _context2.next = 5;
+                _context2.next = 6;
                 break;
               }
 
@@ -5709,14 +5764,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 3:
               res = _context2.sent;
               this.name = res.data.name;
+              this.fileUrl = res.data.image;
 
-            case 5:
+            case 6:
               this.dialogLoading = false;
               this.$nextTick(function () {
                 return _this.$refs.name.focus();
               });
 
-            case 7:
+            case 8:
             case "end":
               return _context2.stop();
           }
@@ -7877,12 +7933,21 @@ var render = function() {
                             "v-card",
                             {
                               staticClass: "rounded",
-                              attrs: { width: "300px" }
+                              attrs: { height: "100%" }
                             },
                             [
-                              _c("v-img", {
-                                attrs: { height: "130", contain: "" }
-                              }),
+                              _c(
+                                "div",
+                                [
+                                  _c("v-img", {
+                                    attrs: {
+                                      src: item.image,
+                                      "aspect-ratio": 16 / 9
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
                               _vm._v(" "),
                               _c(
                                 "v-card-text",
@@ -8102,6 +8167,51 @@ var render = function() {
                                 _vm.name = $$v
                               },
                               expression: "name"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { color: "primary", flat: "" },
+                              on: { click: _vm.pickFile }
+                            },
+                            [
+                              _vm._v(
+                                "\n                          Upload Gambar\n                      "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          !!_vm.fileUrl
+                            ? _c("v-img", {
+                                staticClass: "brand-img",
+                                attrs: {
+                                  src: _vm.fileUrl,
+                                  "max-height": "200px",
+                                  contain: ""
+                                }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("input", {
+                            ref: "file",
+                            staticStyle: { display: "none" },
+                            attrs: { type: "file", name: "thumbnail" },
+                            on: {
+                              change: function($event) {
+                                return _vm.onFileChange(
+                                  $event.target.name,
+                                  $event.target.files
+                                )
+                              }
                             }
                           })
                         ],

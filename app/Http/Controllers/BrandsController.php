@@ -15,12 +15,29 @@ class BrandsController extends Controller
         return response()->json(Brands::with(['credits'])->get(),200);
     }
 
+    public function uploadImage(Request $request, $name = null)
+    {
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+
+            if(is_null($name)){
+                $name = time() . "_" . rand(1000, 1000000) . "." . $image->getClientOriginalExtension();
+            }
+
+            $image->move(public_path('images'), $name);
+
+            return '/images/' .$name;
+        }
+        return '';
+    }
+
    
     public function store(Request $request)
     {
        DB::transaction(function () use ($request, &$brands){
         $brands = Brands::create([
             'name' => $request->input('name'),
+            'image' => $this->uploadImage($request),
         ]);
 
         // Credit::create([

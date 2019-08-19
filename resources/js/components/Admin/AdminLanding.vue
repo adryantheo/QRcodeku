@@ -25,11 +25,15 @@
         <v-layout align-center justify-space-around row fill-height>
 
             <v-flex xs12 md6 xl4 v-for="(item, id) in brand" :key="`brand-${id}`">
-                <v-card class="rounded" width="300px">
+                <v-card class="rounded" height="100%">
+                    <div>
                     <v-img
-                    height="130"
-                    contain
+                    :src="item.image"
+                    :aspect-ratio="16/9"
                     ></v-img>
+
+                    </div>
+                    
                     <v-card-text class="text-xs-center">{{item.amount}}</v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -140,12 +144,13 @@ export default {
           this.closeBrand();
           this.getBrand();  
         },
-        mounted(){
-            this.getBrand();
-        },
+        
 
 
     },
+    mounted(){
+            this.getBrand();
+        },
   
   
 }  

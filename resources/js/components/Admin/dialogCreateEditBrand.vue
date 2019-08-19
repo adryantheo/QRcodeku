@@ -29,6 +29,25 @@
                             ref="name"
                         ></v-text-field>
                     </v-flex>
+                    <v-flex xs12>
+                        <v-btn color="primary" flat @click="pickFile">
+                            Upload Gambar
+                        </v-btn>
+                        <v-img class="brand-img"
+                        v-if="!!fileUrl"
+                        :src="fileUrl"
+                        max-height="200px"
+                        contain
+                        >                            
+                        </v-img>
+                        <input type="file"
+                        ref="file"
+                        name="thumbnail"
+                        @change="onFileChange(
+                            $event.target.name, $event.target.files)"
+                            style="display:none">
+
+                    </v-flex>
                 </v-layout>
             </v-container>     
             </v-card-text>
@@ -57,6 +76,7 @@ export default {
         dialogLoading: true,
         btnLoading: false,
         name:null,
+        fileUrl: '',
 
         rules: {
             required: v => !!v || 'Harus Disi',
@@ -65,15 +85,46 @@ export default {
     }),
 
     methods: {
+
+        pickFile(){
+            this.$refs.file.click();
+        },
+        onFileChange(fieldName, file) {
+            const { maxSize } = this;
+            console.log(fieldName);
+
+            let imageFile = file[0]
+            if (file.length > 0){
+                let size = imageFile.size / maxSize / maxSize
+                if(!imageFile.type.match('image,*')){
+                    this.errorText = 'File harus berupa gambar!';
+                }else if(size>1){
+                    this.errorText = 'Ukuran File harus dibawah 1 MB';
+                }else{
+                    this.errorText = '';
+
+                    this.fileUrl = URL.createObjectURL(imageFile);
+                    this.fileBin = imageFile;
+                }
+            }
+
+        },
         async createNewBrand() {
 
             if(this.$refs.form_new_brand.validate()){
                 this.btnLoading = true;
+                const data = new FormData();
+                data.append(`name`, this.name);
+                if(this.fileBin){
+                    data.append(`image`,this.fileBin);
+                }
                 try {
                     if(!this.brandId){
-                        const res = await axios.post('/api/products', {
-                            name: this.name,
-                        })
+                        const res = await axios.post('/api/products', data, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        });
                         alert("Brand Berhasil dibuat");
                     }else{
                         const res = await axios.patch(`/api/products/${this.brandId}`,{
@@ -92,7 +143,8 @@ export default {
     async mounted(){
         if(!!this.brandId){
             const res = await axios.get(`/api/products/${this.brandId}`)
-            this.name = res.data.name
+            this.name = res.data.name;
+            this.fileUrl = res.data.image;
         }
         this.dialogLoading = false;
         this.$nextTick(()=> this.$refs.name.focus());
