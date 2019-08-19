@@ -7979,7 +7979,7 @@ var render = function() {
                                       },
                                       on: {
                                         click: function($event) {
-                                          return _vm.deleteItem(item)
+                                          return _vm.deleteBrand(item.id)
                                         }
                                       }
                                     },
