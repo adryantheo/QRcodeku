@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Brands;
 use App\Credit;
 use Illuminate\Http\Request;
 
@@ -16,9 +16,10 @@ class CreditController extends Controller
   
     public function store(Request $request)
     {
+        
         $credit = Credit::create([
             'amount' => $request->input('amount'),
-            'qr_strings' => $request->input('qr_strings'),
+            'qr_strings' => 2,
             'brands_id' => $brands->id
         ]);
 

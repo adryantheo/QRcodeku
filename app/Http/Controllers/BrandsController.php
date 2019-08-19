@@ -40,11 +40,11 @@ class BrandsController extends Controller
             'image' => $this->uploadImage($request),
         ]);
 
-        // Credit::create([
-        //     'amount' => $request->input('amount'),
-        //     'qr_strings' => $request->input('qr_strings'),
-        //     'brands_id' => $brands->id
-        // ]);
+        $credit = Credit::create([
+            'amount' => $request->input('amount'),
+            'qr_strings' => $brands->name . "-" .  $request->input('qr_strings') . "-" . $brands->updated_at,
+            'brands_id' => $brands->id 
+        ]);
 
        },3);
         

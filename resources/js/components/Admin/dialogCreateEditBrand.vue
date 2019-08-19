@@ -28,6 +28,12 @@
                             :rules="[rules.required]"
                             ref="name"
                         ></v-text-field>
+                        <v-text-field
+                            label="Jumlah Top-Up"
+                            v-model="amount"
+                            :rules="[rules.required]"
+                            ref="amount"
+                        ></v-text-field>
                     </v-flex>
                     <v-flex xs12>
                         <v-btn color="primary" flat @click="pickFile">
@@ -76,6 +82,7 @@ export default {
         dialogLoading: true,
         btnLoading: false,
         name:null,
+        amount:null,
         fileUrl: '',
 
         rules: {
@@ -115,6 +122,8 @@ export default {
                 this.btnLoading = true;
                 const data = new FormData();
                 data.append(`name`, this.name);
+                data.append(`amount`, this.amount);
+                data.append(`qr_strings`, this.amount);
                 if(this.fileBin){
                     data.append(`image`,this.fileBin);
                 }

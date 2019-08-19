@@ -5621,6 +5621,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     brandId: {
@@ -5633,6 +5639,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       dialogLoading: true,
       btnLoading: false,
       name: null,
+      amount: null,
       fileUrl: '',
       rules: {
         required: function required(v) {
@@ -5675,64 +5682,66 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 if (!this.$refs.form_new_brand.validate()) {
-                  _context.next = 23;
+                  _context.next = 25;
                   break;
                 }
 
                 this.btnLoading = true;
                 data = new FormData();
                 data.append("name", this.name);
+                data.append("amount", this.amount);
+                data.append("qr_strings", this.amount);
 
                 if (this.fileBin) {
                   data.append("image", this.fileBin);
                 }
 
-                _context.prev = 5;
+                _context.prev = 7;
 
                 if (this.brandId) {
-                  _context.next = 13;
+                  _context.next = 15;
                   break;
                 }
 
-                _context.next = 9;
+                _context.next = 11;
                 return axios.post('/api/products', data, {
                   headers: {
                     'Content-Type': 'multipart/form-data'
                   }
                 });
 
-              case 9:
+              case 11:
                 res = _context.sent;
                 alert("Brand Berhasil dibuat");
-                _context.next = 17;
+                _context.next = 19;
                 break;
 
-              case 13:
-                _context.next = 15;
+              case 15:
+                _context.next = 17;
                 return axios.patch("/api/products/".concat(this.brandId), {
                   name: this.name
                 });
 
-              case 15:
+              case 17:
                 _res = _context.sent;
                 alert("Brand Berhasil diubah");
 
-              case 17:
+              case 19:
                 this.$emit('create_success');
-                _context.next = 23;
+                _context.next = 25;
                 break;
 
-              case 20:
-                _context.prev = 20;
-                _context.t0 = _context["catch"](5);
+              case 22:
+                _context.prev = 22;
+                _context.t0 = _context["catch"](7);
                 console.log(_context.t0);
 
-              case 23:
+              case 25:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[5, 20]]);
+        }, _callee, this, [[7, 22]]);
       }));
 
       function createNewBrand() {
@@ -8179,6 +8188,21 @@ var render = function() {
                                 _vm.name = $$v
                               },
                               expression: "name"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            ref: "amount",
+                            attrs: {
+                              label: "Jumlah Top-Up",
+                              rules: [_vm.rules.required]
+                            },
+                            model: {
+                              value: _vm.amount,
+                              callback: function($$v) {
+                                _vm.amount = $$v
+                              },
+                              expression: "amount"
                             }
                           })
                         ],
