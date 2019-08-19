@@ -31,7 +31,7 @@
                         <v-text-field
                             label="Jumlah Top-Up"
                             v-model="amount"
-                            :rules="[rules.required]"
+                            :rules="[rules.required, rules.number, rules.notZero, rules.tooMuch]"
                             ref="amount"
                         ></v-text-field>
                     </v-flex>
@@ -87,6 +87,9 @@ export default {
 
         rules: {
             required: v => !!v || 'Harus Disi',
+            number: v => /^[0-9]*$/.test(v) || 'Harus Angka',
+            notZero: v => v > 0 || 'Tidak Boleh 0',
+            tooMuch: v => v < 9999999 || 'Terlalu Banyak',
 
         },
     }),

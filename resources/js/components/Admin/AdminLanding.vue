@@ -20,10 +20,19 @@
     </v-toolbar>
     
     <v-content>
+        
       <v-container grid-list-lg class="my-3">
-          <v-btn color="primary" dark class="mb-2" @click="openBrandDialog">Tambah Kupon</v-btn>
+          <v-layout align-center justify-space-around>
+              <v-btn color="primary" dark class="mb-2" @click="openBrandDialog">+ Tambah Brand</v-btn>
+          </v-layout>
+          <v-layout align-center justify-space-around row fill-height>
+          <v-flex>
+              <p class="headline">List Brands</p>
+          </v-flex>
+          </v-layout>         
+          
         <v-layout align-center justify-space-around row fill-height>
-
+        
             <v-flex xs12 md6 xl4 v-for="(item, id) in brand" :key="`brand-${id}`">
                 <v-card class="rounded" height="100%">
                     <div>
