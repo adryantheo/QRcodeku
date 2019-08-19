@@ -37,7 +37,7 @@
                     <v-card-text class="text-xs-center">{{item.amount}}</v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                         <v-btn round color="error" dark @click="deleteItem(item)">Delete</v-btn>
+                         <v-btn round color="error" dark @click="deleteBrand(item.id)">Delete</v-btn>
                          <v-spacer></v-spacer>
                     </v-card-actions>
 

@@ -17,6 +17,7 @@ class CreateBrandsTable extends Migration
             $table->bigIncrements('id');
             $table->String('name');
             $table->String('image');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
