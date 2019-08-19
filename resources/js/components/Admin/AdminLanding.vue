@@ -62,7 +62,7 @@
         white--text
         xs12
         >
-        &copy;2019 — <strong>PPQ</strong>
+        &copy;2019 — <strong><a href="https://github.com/adryantheo" style="color: white">Adryan Theo</a></strong>
         </v-flex>
           
     </v-footer>

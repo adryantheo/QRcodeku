@@ -8012,7 +8012,19 @@ var render = function() {
                     xs12: ""
                   }
                 },
-                [_vm._v("\n        ©2019 — "), _c("strong", [_vm._v("PPQ")])]
+                [
+                  _vm._v("\n        ©2019 — "),
+                  _c("strong", [
+                    _c(
+                      "a",
+                      {
+                        staticStyle: { color: "white" },
+                        attrs: { href: "https://github.com/adryantheo" }
+                      },
+                      [_vm._v("Adryan Theo")]
+                    )
+                  ])
+                ]
               )
             ],
             1
@@ -8720,7 +8732,19 @@ var render = function() {
                     xs12: ""
                   }
                 },
-                [_vm._v("\n        ©2019 — "), _c("strong", [_vm._v("PPQ")])]
+                [
+                  _vm._v("\n        ©2019 — "),
+                  _c("strong", [
+                    _c(
+                      "a",
+                      {
+                        staticStyle: { color: "white" },
+                        attrs: { href: "https://github.com/adryantheo" }
+                      },
+                      [_vm._v("Adryan Theo")]
+                    )
+                  ])
+                ]
               )
             ],
             1
