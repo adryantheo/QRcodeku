@@ -2,7 +2,7 @@
   <v-card>
       <v-toolbar color="transparent" flat>
             <v-toolbar-title class="headline">
-                {{ !!brandId? 'Ubah Brand' : 'Brand Baru'}}
+                {{ !!creditId? 'Ubah Credit' : 'Credit Baru'}}
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn icon @click="$emit('close')">
@@ -17,25 +17,19 @@
                 indeterminate
             ></v-progress-circular>
         </v-card-text>
-        <v-form ref="form_new_brand" @submit.prevent="createNewBrand" v-show="!dialogLoading">
+        <v-form ref="form_new_credit" @submit.prevent="createNewCredit" v-show="!dialogLoading">
             <v-card-text>
             <v-container grid-list-lg>
                 <v-layout row wrap>
                     <v-flex xs12>
                         <v-text-field
-                            label="Nama Brand"
-                            v-model="name"
-                            :rules="[rules.required]"
-                            ref="name"
-                        ></v-text-field>
-                        <!-- <v-text-field
-                            label="Jumlah Top-Up"
+                            label="Jumlah Topup"
                             v-model="amount"
                             :rules="[rules.required, rules.number, rules.notZero, rules.tooMuch]"
                             ref="amount"
-                        ></v-text-field> -->
+                        ></v-text-field>
                     </v-flex>
-                    <v-flex xs12>
+                    <!-- <v-flex xs12>
                         <v-btn color="primary" flat @click="pickFile">
                             Upload Gambar
                         </v-btn>
@@ -52,8 +46,7 @@
                         @change="onFileChange(
                             $event.target.name, $event.target.files)"
                             style="display:none">
-
-                    </v-flex>
+                    </v-flex> -->
                 </v-layout>
             </v-container>     
             </v-card-text>
@@ -61,9 +54,9 @@
                 <v-spacer></v-spacer>
                 <v-btn color="primary" large type="submit" :loading="btnLoading">
                     <v-icon left>
-                        {{ !!brandId? 'save' : 'add'}}
+                        {{ !!creditId? 'save' : 'add'}}
                     </v-icon>
-                    {{ !!brandId? 'simpan' : 'buat brand'}}
+                    {{ !!creditId? 'simpan' : 'buat credit'}}
                 </v-btn>
             </v-card-actions>
         </v-form>
@@ -73,7 +66,7 @@
 <script>
 export default {
     props:{
-        brandId:{
+        creditId:{
             type: Number,
             required: true,
         },
@@ -119,30 +112,29 @@ export default {
             }
 
         },
-        async createNewBrand() {
+        async createNewCredit() {
 
-            if(this.$refs.form_new_brand.validate()){
+            if(this.$refs.form_new_credit.validate()){
                 this.btnLoading = true;
                 const data = new FormData();
-                data.append(`name`, this.name);
-                // data.append(`amount`, this.amount);
-                // data.append(`qr_strings`, this.amount);
+                data.append(`amount`, this.amount);
+                data.append(`qr_strings`, this.amount);
                 if(this.fileBin){
                     data.append(`image`,this.fileBin);
                 }
                 try {
                     if(!this.brandId){
-                        const res = await axios.post('/api/products', data, {
+                        const res = await axios.post('/api/credits', data, {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
                             }
                         });
-                        alert("Brand Berhasil dibuat");
+                        alert("Credits Baru Berhasil dibuat");
                     }else{
-                        const res = await axios.patch(`/api/products/${this.brandId}`,{
-                            name: this.name,
+                        const res = await axios.patch(`/api/credits/${this.creditId}`,{
+                            amount: this.amount,
                         })
-                        alert("Brand Berhasil diubah");
+                        alert("Credit Berhasil diubah");
                     }
                     this.$emit('create_success');
                 } catch(err){
@@ -153,10 +145,10 @@ export default {
     },
 
     async mounted(){
-        if(!!this.brandId){
-            const res = await axios.get(`/api/products/${this.brandId}`)
-            this.name = res.data.name;
-            this.fileUrl = res.data.image;
+        if(!!this.creditId){
+            const res = await axios.get(`/api/credits/${this.creditId}`)
+            this.amount = res.data.amount;
+            // this.fileUrl = res.data.image;
         }
         this.dialogLoading = false;
         this.$nextTick(()=> this.$refs.name.focus());

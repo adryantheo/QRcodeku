@@ -23,17 +23,17 @@
         
       <v-container grid-list-lg class="my-3">
           <v-layout align-center justify-space-around>
-              <v-btn color="primary" dark class="mb-2" @click="openBrandDialog">+ Tambah Brand</v-btn>
+              <v-btn color="primary" dark class="mb-2" @click="openCreditDialog">+ Tambah Credit</v-btn>
           </v-layout>
           <v-layout align-center justify-space-around row fill-height>
           <v-flex>
-              <p class="headline">List Brands</p>
+              <p class="headline">List Credit</p>
           </v-flex>
           </v-layout>         
           
         <v-layout align-center justify-space-around row fill-height>
         
-            <v-flex xs12 md6 xl4 v-for="(item, id) in brand" :key="`brand-${id}`">
+            <v-flex xs12 md6 xl4 v-for="(item, id) in credit" :key="`credit-${id}`">
                 <v-card class="rounded" height="100%">
                     <div>
                     <v-img
@@ -46,9 +46,9 @@
                     
                     <v-card-text class="text-xs-center">{{item.amount}}</v-card-text>
                     <v-card-actions>
-                        <v-btn color="indigo" flat around :to="`/admin/brand/${item.id}`">Info</v-btn>
+            
                         <v-spacer></v-spacer>
-                         <v-btn round color="error" dark @click="deleteBrand(item.id)">Delete</v-btn>
+                         <v-btn round color="error" dark @click="deleteCredit(item.id)">Delete</v-btn>
                          <v-spacer></v-spacer>
                     </v-card-actions>
 
@@ -79,88 +79,95 @@
     </v-footer>
 
 </v-app>
-    <v-dialog v-model="dialogCreateEditBrand"
+    <v-dialog v-model="dialogCreateEditCredit"
     persistent max-width="600px"
     >
-    <dialog-create-edit-brand
-    :brandId = "parseInt(brandId)"
-    @close="closeBrand"
-    @create_success="reloadBrand"
-    :key="dialogCreateEditBrandKey"
+    <dialog-create-edit-credit
+    :creditId = "parseInt(creditId)"
+    @close="closeCredit"
+    @create_success="reloadCredit"
+    :key="dialogCreateEditCreditKey"
     >
-    </dialog-create-edit-brand>
+    </dialog-create-edit-credit>
 
     </v-dialog>
 </div>
 </template>
 
 <script>
-import dialogCreateEditBrand from './dialogCreateEditBrand'
+import dialogCreateEditCredit from './dialogCreateEditCredit'
 
 export default {
+    props:{
+        brand: {
+            type: String,
+            required: true,
+        }
+
+    },
 
     components: {
-        dialogCreateEditBrand,
+        dialogCreateEditCredit,
 
     },
 
     data:() =>({
-        brandId: 0,
-        brand: [],
-        dialogCreateEditBrand: false,
-        dialogCreateEditBrandKey: 0,
+        creditId: 0,
+        credit: [],
+        dialogCreateEditCredit: false,
+        dialogCreateEditCreditKey: 0,
 
 
     }),
 
     methods: {
         
-        fetchBrand(){
-            return axios.get('/api/products')
+        fetchCredit(){
+            return axios.get('/api/credits')
         },
-        async getBrand(){
+        async getCredit(){
             try{
-                const res = await this.fetchBrand();
-                this.brand = res.data.reverse();
+                const res = await this.fetchCredit();
+                this.credit = res.data.reverse();
             } catch (err) {
                 console.log(err);
             }            
         },
-        openBrandDialog(){
-            this.dialogCreateEditBrandKey = !!this.dialogCreateEditBrandKey? 0 : 1;
-            this.dialogCreateEditBrand = true;
+        openCreditDialog(){
+            this.dialogCreateEditCreditKey = !!this.dialogCreateEditCreditKey? 0 : 1;
+            this.dialogCreateEditCredit = true;
         },
-        editBrand(id){
-            this.standId = id;
-            this.openBrandDialog();
+        editCredit(id){
+            this.creditId = id;
+            this.openCreditDialog();
         },
-        async deleteBrand(id){
+        async deleteCredit(id){
             const willDelete = confirm("Apakah Anda Yakin Ingin Menghapus ini?");
             if(willDelete){
                 try{
-                    const res = await axios.delete(`/api/products/${id}`, null);
+                    const res = await axios.delete(`/api/credits/${id}`, null);
                     console.log(res.data);
-                    this.getBrand();
+                    this.getCredit();
                 }catch(err){
                     console.log(err);
                 }
             }
 
         },
-        closeBrand(){
-            this.dialogCreateEditBrand = false;
-            this.brandId = 0;
+        closeCredit(){
+            this.dialogCreateEditCredit = false;
+            this.creditId = 0;
         },
-        reloadBrand(){
-          this.closeBrand();
-          this.getBrand();  
+        reloadCredit(){
+          this.closeCredit();
+          this.getCredit();  
         },
         
 
 
     },
     mounted(){
-            this.getBrand();
+            this.getCredit();
         },
   
   
