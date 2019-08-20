@@ -20,7 +20,7 @@ class CreditController extends Controller
         $credit = Credit::create([
             'amount' => $request->input('amount'),
             'qr_strings' => $request->input('qr_strings') . "-" . $request->input('updated_at'),
-            'brands_id' => $brands->id 
+            'brands_id' => $request->input('brands_id'),
         ]);
 
         return response()->json([

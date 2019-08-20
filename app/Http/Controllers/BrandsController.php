@@ -56,7 +56,7 @@ class BrandsController extends Controller
     
     public function show(Brands $brands)
     {
-        return response()->json($brands,200);        
+        return response()->json(Brands::with('credits')->where('id', '=', $brands->id)->first(),200);        
     }
 
     public function update(Request $request, Brands $brands)

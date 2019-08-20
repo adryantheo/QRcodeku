@@ -66,6 +66,11 @@
 <script>
 export default {
     props:{
+        brand:{
+            type: Number,
+            required: true,
+        },
+       
         creditId:{
             type: Number,
             required: true,
@@ -86,7 +91,6 @@ export default {
 
         },
     }),
-
     methods: {
 
         pickFile(){
@@ -119,6 +123,7 @@ export default {
                 const data = new FormData();
                 data.append(`amount`, this.amount);
                 data.append(`qr_strings`, this.amount);
+                data.append(`brands_id`, this.brand);
                 if(this.fileBin){
                     data.append(`image`,this.fileBin);
                 }
@@ -151,7 +156,7 @@ export default {
             // this.fileUrl = res.data.image;
         }
         this.dialogLoading = false;
-        this.$nextTick(()=> this.$refs.name.focus());
+        this.$nextTick(()=> this.$refs.amount.focus());
     }
 
 }

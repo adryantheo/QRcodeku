@@ -1,24 +1,6 @@
 <template>
-    <div id="app">
-     <v-app id="inspire">
-    <v-toolbar color="white" app>
-    
-      <img src="../../../../public/Logo.png" height="42" width="42" alt="" >
-      <v-toolbar-title>QRku</v-toolbar-title>
+    <div>
 
-      <v-spacer></v-spacer>
-      <v-layout row align-center style="max-width: 250px">
-        <v-text-field
-          placeholder="Search"
-          single-line
-          append-icon="search"
-          :append-icon-cb="() => {}"
-          color="white"
-          hide-details
-        ></v-text-field>
-      </v-layout>
-    </v-toolbar>
-    
     <v-content>
         
       <v-container grid-list-lg class="my-3">
@@ -32,7 +14,6 @@
           </v-layout>         
           
         <v-layout align-center justify-space-around row fill-height>
-        
             <v-flex xs12 md6 xl4 v-for="(item, id) in credit" :key="`credit-${id}`">
                 <v-card class="rounded" height="100%">
                     <div>
@@ -51,10 +32,8 @@
                          <v-btn round color="error" dark @click="deleteCredit(item.id)">Delete</v-btn>
                          <v-spacer></v-spacer>
                     </v-card-actions>
-
                 </v-card>
             </v-flex>
-
         </v-layout>
          
 
@@ -64,26 +43,15 @@
     </v-content>
 
         
-    <v-footer height="auto" color="indigo">          
-              
-        <v-flex
-        indigo
-        py-3
-        text-xs-center
-        white--text
-        xs12
-        >
-        &copy;2019 — <strong><a href="https://github.com/adryantheo" style="color: white">Adryan Theo</a></strong>
-        </v-flex>
-          
-    </v-footer>
+  
 
-</v-app>
+
     <v-dialog v-model="dialogCreateEditCredit"
     persistent max-width="600px"
     >
     <dialog-create-edit-credit
     :creditId = "parseInt(creditId)"
+    :brand = "parseInt(brand)"
     @close="closeCredit"
     @create_success="reloadCredit"
     :key="dialogCreateEditCreditKey"
@@ -98,16 +66,15 @@
 import dialogCreateEditCredit from './dialogCreateEditCredit'
 
 export default {
+    components: {
+        dialogCreateEditCredit,
+
+    },
     props:{
         brand: {
             type: String,
             required: true,
         }
-
-    },
-
-    components: {
-        dialogCreateEditCredit,
 
     },
 

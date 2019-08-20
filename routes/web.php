@@ -15,7 +15,7 @@ Route::any('/{any}', function () {
     return view('welcome');
 })->where('any', '.*');
 
-Route::any('/admin', function () {
+Route::any('/admin/{page}', function () {
     return view('welcome');
 })->where('any', '.*');
 
