@@ -15,15 +15,9 @@ const routes = [
     {
         path:'/admin', component: Admin,
         children:[
-            {
-                path: 'brand',
-                component: AdminBrands,
-            },
-            {
-                path: 'brand/:brand',
-                component: detailBrand,
-                props:true,
-            },
+            { path: '/admin', redirect: 'brand' },
+            { path: 'brand', component: AdminBrands, },
+            { path: 'brand/:brand', component: detailBrand, props:true, },
         ]
     },
     // {

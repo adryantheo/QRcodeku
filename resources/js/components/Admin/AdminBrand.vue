@@ -25,12 +25,14 @@
                     </div>
                     <v-spacer></v-spacer>
                     
-                    <v-card-text class="text-xs-center">{{item.amount}}</v-card-text>
+                    <v-card-text class="text-sm-center">
+                       <p class="title font-weight-regular">{{item.name}}</p> 
+                        </v-card-text>
                     <v-card-actions>
-                        <v-btn color="indigo" flat around :to="`/admin/brand/${item.id}`">Info</v-btn>
+                        <v-btn round color="primary" dark  :to="`/admin/brand/${item.id}`">Info</v-btn>
                         <v-spacer></v-spacer>
                          <v-btn round color="error" dark @click="deleteBrand(item.id)">Delete</v-btn>
-                         <v-spacer></v-spacer>
+                         <!-- <v-spacer></v-spacer> -->
                     </v-card-actions>
 
                 </v-card>
@@ -73,8 +75,6 @@ export default {
         brand: [],
         dialogCreateEditBrand: false,
         dialogCreateEditBrandKey: 0,
-
-
     }),
 
     methods: {
@@ -119,9 +119,6 @@ export default {
           this.closeBrand();
           this.getBrand();  
         },
-        
-
-
     },
     mounted(){
             this.getBrand();
