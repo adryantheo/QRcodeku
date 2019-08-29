@@ -12,30 +12,7 @@
               <p class="headline">List Credit</p>
           </v-flex>
           </v-layout>         
-          
-        <!-- <v-layout align-center justify-space-around row fill-height>
-            <v-flex xs12 md6 xl4 v-for="(item, id) in credit" :key="`credit-${id}`">
-                <v-card class="rounded" height="100%">
-                    <div>
-                    <v-img>
-                    <qrcode value="item.amount" :options="{width: 200}"></qrcode>
-                    </v-img>
-                    
-
-                    </div>
-                    <v-spacer></v-spacer>
-                    
-                    <v-card-text class="text-xs-center">{{item.amount}}</v-card-text>
-                    <v-card-actions>
-            
-                        <v-spacer></v-spacer>
-                         <v-btn round color="error" dark @click="deleteCredit(item.id)">Delete</v-btn>
-                         <v-spacer></v-spacer>
-                    </v-card-actions>
-                </v-card>
-            </v-flex>
-        </v-layout> -->
-         
+                  
 
         
         <!-- <qrcode value="Rp 25.000" :options="{width: 200}"></qrcode> -->

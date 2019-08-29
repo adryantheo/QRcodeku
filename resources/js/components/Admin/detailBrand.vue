@@ -82,6 +82,7 @@ export default {
             dialogCreateEditCredit: false,
             dialogCreateEditCreditKey: 0,
             productCredits: [],
+            kodeQR: [],
         }),
     methods: {
             fetchBrandDetail(){
@@ -93,6 +94,8 @@ export default {
                     const brand = res.data;
                     this.name = brand.name;
                     this.productCredits = brand.credits.reverse();
+                    // this.kodeQR = brand.credits.qr_strings.reverse();
+                    // console.log(this.kodeQR)
                 }catch(err){
                     console.log(err);
                 }
@@ -104,7 +107,8 @@ export default {
             // async getCredit(){
             //         try{
             //             const res = await this.fetchCredit();
-            //             this.credit = res.data.reverse();
+            //             const credit = res.data;
+            //             this.kodeQR = credit.qr_strings.reverse();
             //         } catch (err) {
             //             console.log(err);
             //         }            
@@ -140,6 +144,7 @@ export default {
         },
     mounted(){
         this.getBrandDetail();
+        // this.getCredit();
     }, 
 
 }

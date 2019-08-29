@@ -10,7 +10,7 @@ class CreditController extends Controller
   
     public function index()
     {
-        return response()->json(Credit::with(['brands'])->get(),200);
+        return response()->json(Credit::all(),200);
     }
 
   
@@ -19,7 +19,7 @@ class CreditController extends Controller
         
         $credit = Credit::create([
             'amount' => $request->input('amount'),
-            'qr_strings' => $request->input('qr_strings') . "-" . $this->created_at,
+            'qr_strings' =>  $request->input('qr_strings')."_".$request->input('brands_id'),
             'brands_id' => $request->input('brands_id'),
         ]);
 
