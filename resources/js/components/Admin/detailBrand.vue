@@ -23,13 +23,16 @@
                 <v-card class="rounded" height="100%">
                     <div>
                     <v-img
-                    :src="item.image"
-                    :aspect-ratio="16/9"
-                    ></v-img>
+                    >
+                    <qr-code 
+                    :text="item.qr_strings"
+                    error-level="L"
+                    ></qr-code>
+                    </v-img>
                     </div>
                     <v-spacer></v-spacer>
                     <v-card-text class="text-xs-center">
-                        <div class="subheading">{{item.amount}}</div>
+                        <div class="subheading">Rp. {{item.amount}}</div>
                     </v-card-text>
                     <v-card-actions>
                      <v-spacer></v-spacer>

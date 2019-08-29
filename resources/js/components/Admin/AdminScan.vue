@@ -5,7 +5,6 @@
         
       <v-container grid-list-lg class="my-3">
           <v-layout align-center justify-space-around>
-              <v-btn color="primary" dark class="mb-2" @click="openCreditDialog">+ Tambah Credit</v-btn>
           </v-layout>
           <v-layout align-center justify-space-around row fill-height>
           <v-flex>
@@ -13,14 +12,14 @@
           </v-flex>
           </v-layout>         
           
-        <!-- <v-layout align-center justify-space-around row fill-height>
+        <v-layout align-center justify-space-around row fill-height>
             <v-flex xs12 md6 xl4 v-for="(item, id) in credit" :key="`credit-${id}`">
                 <v-card class="rounded" height="100%">
                     <div>
-                    <v-img>
-                    <qrcode value="item.amount" :options="{width: 200}"></qrcode>
-                    </v-img>
-                    
+                    <v-img
+                    :src="item.image"
+                    :aspect-ratio="16/9"
+                    ></v-img>
 
                     </div>
                     <v-spacer></v-spacer>
@@ -34,7 +33,7 @@
                     </v-card-actions>
                 </v-card>
             </v-flex>
-        </v-layout> -->
+        </v-layout>
          
 
         

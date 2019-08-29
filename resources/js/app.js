@@ -8,9 +8,9 @@ import Router from './router/router.js'
 import Vuetify from 'vuetify' 
 import axios from 'axios'
 import VueQrcodeReader from "vue-qrcode-reader"
-import VueQrcode from '@chenfengyuan/vue-qrcode';
+import VueQRCodeComponent from 'vue-qrcode-component';
 
-Vue.component(VueQrcode.name, VueQrcode);
+Vue.component('qr-code', VueQRCodeComponent);
 
 Vue.use(VueQrcodeReader);
 
