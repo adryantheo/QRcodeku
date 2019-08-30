@@ -100,19 +100,6 @@ export default {
                     console.log(err);
                 }
             },
-
-            // fetchCredit(){
-            //     return axios.get('/api/credits')
-            //     },
-            // async getCredit(){
-            //         try{
-            //             const res = await this.fetchCredit();
-            //             const credit = res.data;
-            //             this.kodeQR = credit.qr_strings.reverse();
-            //         } catch (err) {
-            //             console.log(err);
-            //         }            
-            //     },
             openCreditDialog(){
                 this.dialogCreateEditCreditKey = !!this.dialogCreateEditCreditKey? 0 : 1;
                 this.dialogCreateEditCredit = true;
@@ -139,7 +126,7 @@ export default {
             },
             reloadCredit(){
             this.closeCredit();
-            this.getCredit();  
+            this.getBrandDetail();  
             },
         },
     mounted(){

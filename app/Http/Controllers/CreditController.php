@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Brands;
 use App\Credit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CreditController extends Controller
 {
@@ -52,6 +53,47 @@ class CreditController extends Controller
             'data' => $status,
             'message' => $status ? 'Credits Baru Berhasil Diupdate!' : 'Error Mengupdate Credits Baru'
         ]);
+    }
+
+    public function redeem(Request $request, $qrcode)
+    {
+        // $status = DB::transaction(function () use($qrcode){
+        //     $cek = Credit::where('qr_strings', "LIKE", $qrcode)->first();
+        // if($cek){
+        //         $status = Credit::find($cek);
+        //         $status->is_redeem = true;
+        //         $status->save();   
+        //     }
+            
+        // },3);
+        $cek = Credit::where('qr_strings', "LIKE", $qrcode)->first('id');
+        // return response()->json($status,200);
+       
+        if($cek){            
+            $status = $this->changeStatus($cek);
+        }else{
+            return response()->json(['Invalid Code']);
+        }
+
+        return response()->json([
+             $status
+        ]);
+
+        
+    }
+
+    public function changeStatus(Credit $credit)
+    {
+        
+            $credit->is_redeem = true;
+            $status = $credit -> save();
+            return response()->json([
+                'message' => $status ? 'Redeem Success!' : 'Error Redeeming Code'
+            ]);
+      
+
+   
+        
     }
 
   

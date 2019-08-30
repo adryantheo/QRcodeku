@@ -29,24 +29,6 @@
                             ref="amount"
                         ></v-text-field>
                     </v-flex>
-                    <!-- <v-flex xs12>
-                        <v-btn color="primary" flat @click="pickFile">
-                            Upload Gambar
-                        </v-btn>
-                        <v-img class="brand-img"
-                        v-if="!!fileUrl"
-                        :src="fileUrl"
-                        max-height="200px"
-                        contain
-                        >                            
-                        </v-img>
-                        <input type="file"
-                        ref="file"
-                        name="thumbnail"
-                        @change="onFileChange(
-                            $event.target.name, $event.target.files)"
-                            style="display:none">
-                    </v-flex> -->
                 </v-layout>
             </v-container>     
             </v-card-text>

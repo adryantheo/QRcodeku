@@ -28,3 +28,5 @@ Route::get('credits/{credit}','CreditController@show');
 Route::post('credits','CreditController@store');
 Route::patch('credits/{credit}','CreditController@update');
 Route::delete('credits/{credit}','CreditController@destroy');
+
+Route::patch('credits/{qrcode}/redeem','CreditController@redeem');

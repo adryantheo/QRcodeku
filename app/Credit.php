@@ -12,7 +12,8 @@ class Credit extends Model
     protected $fillable = [
         'amount',
         'qr_strings',
-        'brands_id'
+        'brands_id',
+        'is_redeem',
 
     ];
 

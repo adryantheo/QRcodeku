@@ -18,6 +18,7 @@ class CreateCreditsTable extends Migration
             $table->String('amount');
             $table->String('qr_strings');
             $table->unsignedInteger('brands_id');
+            $table->boolean('is_redeem')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });
