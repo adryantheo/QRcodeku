@@ -57,46 +57,23 @@ class CreditController extends Controller
 
     public function redeem(Request $request, $qrcode)
     {
-        // $status = DB::transaction(function () use($qrcode){
-        //     $cek = Credit::where('qr_strings', "LIKE", $qrcode)->first();
-        // if($cek){
-        //         $status = Credit::find($cek);
-        //         $status->is_redeem = true;
-        //         $status->save();   
-        //     }
-            
-        // },3);
-        $cek = Credit::where('qr_strings', "LIKE", $qrcode)->first('id');
-        // return response()->json($status,200);
-       
-        if($cek){            
-            $status = $this->changeStatus($cek);
-        }else{
-            return response()->json(['Invalid Code']);
-        }
-
-        return response()->json([
-             $status
-        ]);
-
         
+        $status = Credit::where('qr_strings', "LIKE", $qrcode)->first();
+        if(!$status){
+                return response()->json(['Invalid Code']);
+            }
+        else if($status->is_redeem != true){
+                $data = Credit::where('qr_strings', "LIKE", $qrcode)
+                        ->update(['is_redeem' => true ]);
+                return response()->json([
+                        'message' => $data ? 'Redeem Success!' : 'Error Redeeming Code'
+                    ]);
+                }
+        else{
+                return response()->json(['Code Already Redeemed']);
+            }
     }
 
-    public function changeStatus(Credit $credit)
-    {
-        
-            $credit->is_redeem = true;
-            $status = $credit -> save();
-            return response()->json([
-                'message' => $status ? 'Redeem Success!' : 'Error Redeeming Code'
-            ]);
-      
-
-   
-        
-    }
-
-  
     public function destroy(Credit $credit)
     {
         $status = $credit->delete();
