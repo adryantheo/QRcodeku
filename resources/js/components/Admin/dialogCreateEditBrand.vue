@@ -125,8 +125,6 @@ export default {
                 this.btnLoading = true;
                 const data = new FormData();
                 data.append(`name`, this.name);
-                // data.append(`amount`, this.amount);
-                // data.append(`qr_strings`, this.amount);
                 if(this.fileBin){
                     data.append(`image`,this.fileBin);
                 }
