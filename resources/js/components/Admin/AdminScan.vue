@@ -7,13 +7,12 @@
           <v-layout align-center justify-space-around row fill-height>
           <v-flex>
               <p class="headline">App Scaner</p>
-                <qrcode-stream></qrcode-stream>
           </v-flex>
           </v-layout>         
           
         <v-layout align-center justify-space-around row fill-height>
             <v-flex xs12 md6 xl4>
-                
+                <qrcode-stream></qrcode-stream>
             </v-flex>
         </v-layout>
       </v-container>
