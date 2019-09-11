@@ -72,7 +72,7 @@
             <v-dialog v-model="dialogMini" persistent max-width="200px">
                 <v-card>
                     <v-img>
-                        <qrcode value="Rp 25.000" :options="{width: 200}"></qrcode>
+                        <qr-code value="Rp 25.000" :options="{width: 200}"></qr-code>
                     </v-img>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -85,7 +85,7 @@
             <v-dialog v-model="dialogMedium" persistent max-width="200px">
                  <v-card>
                     <v-img>
-                        <qrcode value="Rp 50.000" :options="{width: 200}"></qrcode>
+                        <qr-code value="Rp 50.000" :options="{width: 200}"></qr-code>
                     </v-img>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -98,7 +98,7 @@
             <v-dialog v-model="dialogHuge" persistent max-width="200px">
                  <v-card>
                     <v-img>
-                        <qrcode value="Rp 100.000" :options="{width: 200}"></qrcode>
+                        <qr-code value="Rp 100.000" :options="{width: 200}"></qr-code>
                     </v-img>
                     <v-card-actions>
                         <v-spacer></v-spacer>

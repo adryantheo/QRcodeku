@@ -78,26 +78,6 @@ export default {
         pickFile(){
             this.$refs.file.click();
         },
-        onFileChange(fieldName, file) {
-            const { maxSize } = this;
-            console.log(fieldName);
-
-            let imageFile = file[0]
-            if (file.length > 0){
-                let size = imageFile.size / maxSize / maxSize
-                if(!imageFile.type.match('image,*')){
-                    this.errorText = 'File harus berupa gambar!';
-                }else if(size>1){
-                    this.errorText = 'Ukuran File harus dibawah 1 MB';
-                }else{
-                    this.errorText = '';
-
-                    this.fileUrl = URL.createObjectURL(imageFile);
-                    this.fileBin = imageFile;
-                }
-            }
-
-        },
         async createNewCredit() {
 
             if(this.$refs.form_new_credit.validate()){
@@ -106,9 +86,6 @@ export default {
                 data.append(`amount`, this.amount);
                 data.append(`qr_strings`, this.amount);
                 data.append(`brands_id`, this.brand);
-                if(this.fileBin){
-                    data.append(`image`,this.fileBin);
-                }
                 try {
                     if(!this.brandId){
                         const res = await axios.post('/api/credits', data, {
